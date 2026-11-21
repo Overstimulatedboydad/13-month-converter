@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>13-Month Birthday Converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --surface:#fffdf8;
+    --surface-2:#ece7da;
+    --ink:#1e2a26;
+    --ink-soft:#4c5a54;
+    --line:#d8d0bf;
+    --accent:#0e6b5c;
+    --accent-ink:#ffffff;
+    --gold:#b07d1e;
+    --gold-soft:#f3e5c3;
+    --chip:#e7e1d2;
+    --code-bg:#1c2422;
+    --code-ink:#e8e2d2;
+    --shadow:0 10px 30px rgba(30,42,38,.10);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#121816;
+      --surface:#1b2320;
+      --surface-2:#242e2a;
+      --ink:#ece7da;
+      --ink-soft:#a9b4ad;
+      --line:#39443f;
+      --accent:#2fa58d;
+      --accent-ink:#0d1513;
+      --gold:#d9a83f;
+      --gold-soft:#3a2f14;
+      --chip:#26302c;
+      --code-bg:#0b100e;
+      --code-ink:#ddd6c4;
+      --shadow:0 10px 30px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.55;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:28px 18px 56px}
+  h1,h2,h3{font-family:"Newsreader",Georgia,serif;line-height:1.15;margin:0}
+  h1{font-size:clamp(30px,6vw,44px);font-weight:700;letter-spacing:-.01em}
+  h2{font-size:clamp(21px,4vw,26px);font-weight:600;margin-bottom:10px}
+  p{margin:0}
+  .lede{color:var(--ink-soft);font-size:17px;max-width:62ch;margin-top:10px}
+  .lede strong{color:var(--ink)}
+  .rule{height:3px;background:var(--accent);border-radius:2px;width:64px;margin:18px 0 0}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    box-shadow:var(--shadow);padding:22px;margin-top:26px;
+  }
+  label.field-label{display:block;font-weight:600;font-size:14px;letter-spacing:.02em;margin-bottom:8px}
+  .input-row{display:flex;gap:10px;flex-wrap:wrap}
+  input[type="date"]{
+    flex:1 1 220px;min-height:48px;padding:10px 14px;font:inherit;font-size:17px;
+    color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:8px;
+  }
+  input[type="date"]:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  button{
+    min-height:48px;padding:10px 22px;font:inherit;font-weight:600;font-size:16px;
+    border-radius:8px;border:1.5px solid transparent;cursor:pointer;
+  }
+  .btn-primary{background:var(--accent);color:var(--accent-ink)}
+  .btn-primary:active{transform:translateY(1px)}
+  .examples{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;align-items:center}
+  .examples span{font-size:13px;color:var(--ink-soft);font-weight:600}
+  .chip{
+    min-height:40px;padding:6px 14px;font-size:14px;font-weight:500;
+    background:var(--chip);color:var(--ink);border:1px solid var(--line);border-radius:999px;
+  }
+  .chip:active{transform:translateY(1px)}
+  .err{display:none;margin-top:12px;color:#b3261e;font-weight:500;font-size:15px}
+  .toggle-btn{
+    margin-top:18px;min-height:44px;padding:8px 16px;font-size:14.5px;font-weight:600;
+    background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:8px;
+  }
+  .toggle-btn:active{transform:translateY(1px)}
+  .compare-section{display:none;margin-top:16px;border-top:1px solid var(--line);padding-top:18px}
+  .compare-section.open{display:block}
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  @media (max-width:560px){.compare-grid{grid-template-columns:1fr}}
+  .compare-person{background:var(--surface-2);border-radius:8px;padding:16px}
+  .compare-person .who{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  .compare-person .cdate{font-family:"Newsreader",Georgia,serif;font-size:21px;font-weight:700;line-height:1.2;margin-top:6px}
+  .compare-person .cgiven{font-size:13.5px;color:var(--ink-soft);margin-top:2px}
+  .compare-person ul{list-style:none;margin:12px 0 0;padding:0;font-size:14.5px}
+  .compare-person li{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid var(--line)}
+  .compare-person li:first-child{border-top:none}
+  .compare-person li span{color:var(--ink-soft)}
+  .compare-person li strong{font-weight:700}
+  .compare-note{
+    margin-top:14px;background:var(--gold-soft);border:1px solid var(--gold);
+    border-radius:8px;padding:12px 14px;font-size:15px;
+  }
+  .cta-box{
+    margin-top:24px;border:1.5px solid var(--accent);border-radius:10px;
+    background:var(--surface-2);padding:22px;text-align:center;
+  }
+  .cta-box h3{font-size:clamp(20px,4vw,24px);margin-bottom:8px}
+  .cta-box p{color:var(--ink-soft);font-size:15px;max-width:52ch;margin:0 auto 16px}
+  .cta-btn{
+    display:inline-flex;align-items:center;justify-content:center;min-height:48px;
+    padding:10px 22px;font-weight:600;font-size:16px;text-decoration:none;
+    background:var(--accent);color:var(--accent-ink);border-radius:8px;
+  }
+  .cta-btn:active{transform:translateY(1px)}
+  @media (prefers-color-scheme: dark){.err{color:#f2b8b5}}
+  .result-date{
+    font-family:"Newsreader",Georgia,serif;font-size:clamp(30px,6.5vw,42px);
+    font-weight:700;line-height:1.1;
+  }
+  .result-sub{color:var(--ink-soft);margin-top:6px;font-size:15px}
+  .standalone-banner{
+    display:none;margin-top:14px;background:var(--gold-soft);border:1px solid var(--gold);
+    color:var(--ink);border-radius:8px;padding:12px 14px;font-size:15px;
+  }
+  .lp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+  @media (max-width:560px){.lp-grid{grid-template-columns:1fr}}
+  .lp-box{background:var(--surface-2);border-radius:8px;padding:16px;text-align:center}
+  .lp-box .num{font-family:"Newsreader",Georgia,serif;font-size:44px;font-weight:700;line-height:1}
+  .lp-box .lbl{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px}
+  .lp-box .kw{font-size:14px;margin-top:4px;color:var(--gold);font-weight:600}
+  .lp-box.master .num{color:var(--gold)}
+  .breakdown{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+  .breakdown h3{font-size:17px;margin-bottom:8px}
+  .breakdown ul{margin:0;padding-left:20px;color:var(--ink-soft);font-size:15px}
+  .breakdown li{margin:4px 0}
+  .breakdown code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;color:var(--ink)}
+  .months{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin-top:6px}
+  .month{
+    border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface);
+    font-size:14px;
+  }
+  .month .mnum{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft)}
+  .month .mname{font-family:"Newsreader",Georgia,serif;font-size:18px;font-weight:600}
+  .month .mdays{color:var(--ink-soft);font-size:12.5px}
+  .month.active{border-color:var(--accent);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--accent)}
+  .month.active .mname{color:var(--accent)}
+  .month.sol .mname{color:var(--gold)}
+  .plain-list{margin:0;padding-left:20px;color:var(--ink-soft)}
+  .plain-list li{margin:6px 0}
+  .plain-list strong{color:var(--ink)}
+  details{margin-top:26px}
+  summary{
+    cursor:pointer;font-family:"Newsreader",Georgia,serif;font-size:20px;font-weight:600;
+    min-height:44px;display:flex;align-items:center;
+  }
+  .code-wrap{position:relative;margin-top:10px}
+  pre{
+    background:var(--code-bg);color:var(--code-ink);border-radius:10px;
+    padding:18px;overflow-x:auto;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:12.5px;line-height:1.6;margin:0;white-space:pre;
+  }
+  .copy-btn{
+    position:absolute;top:10px;right:10px;min-height:40px;padding:6px 14px;font-size:13.5px;
+    background:var(--surface-2);color:var(--ink);border:1px solid var(--line);
+  }
+  footer{margin-top:36px;color:var(--ink-soft);font-size:13.5px;text-align:center}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>13-Month Birthday Converter</h1>
+  <div class="rule"></div>
+  <p class="lede">Enter any Gregorian birthday and see the same day on the <strong>13-month calendar</strong> — thirteen months of exactly 28 days (364 days), plus one standalone <strong>Year Day</strong>, and a <strong>Leap Day</strong> in leap years. It also works out your Life Path number three ways: Gregorian, 13-month, and blended.</p>
+  <section class="card" aria-label="Converter">
+    <label class="field-label" for="bday">Your Gregorian birthday</label>
+    <div class="input-row">
+      <input type="date" id="bday" value="1993-08-04" min="0001-01-01" max="9999-12-31" />
+      <button class="btn-primary" id="convertBtn" type="button">Convert</button>
+    </div>
+    <p class="err" id="err">Please pick a valid date first.</p>
+    <div class="examples">
+      <span>Try:</span>
+      <button class="chip" type="button" data-date="1993-08-04">Aug 4, 1993</button>
+      <button class="chip" type="button" data-date="2000-06-29">Jun 29, 2000 (Leap Day)</button>
+      <button class="chip" type="button" data-date="1990-12-31">Dec 31, 1990 (Year Day)</button>
+    </div>
+    <button class="toggle-btn" id="compareToggle" type="button" aria-expanded="false" aria-controls="compareSection">+ Compare With Partner or Child</button>
+    <div class="compare-section" id="compareSection">
+      <label class="field-label" for="bday2">Second birthday (partner / child)</label>
+      <div class="input-row">
+        <input type="date" id="bday2" value="2005-09-05" min="0001-01-01" max="9999-12-31" />
+        <button class="btn-primary" id="compareBtn" type="button">Compare</button>
+      </div>
+      <p class="err" id="err2">Please pick a valid second date first.</p>
+      <div id="compareOutput"></div>
+    </div>
+    <div style="margin-top:24px">
+      <p class="result-sub" id="inputEcho">August 4, 1993 on the 13-month calendar is</p>
+      <p class="result-date" id="resultDate">—</p>
+      <div class="standalone-banner" id="standaloneBanner"></div>
+    </div>
+    <div class="lp-grid">
+      <div class="lp-box" id="boxG">
+        <div class="num" id="lpG">–</div>
+        <div class="lbl">Gregorian Life Path</div>
+        <div class="kw" id="kwG"></div>
+      </div>
+      <div class="lp-box" id="box13">
+        <div class="num" id="lp13">–</div>
+        <div class="lbl">13-Month Life Path</div>
+        <div class="kw" id="kw13"></div>
+      </div>
+      <div class="lp-box" id="boxB">
+        <div class="num" id="lpB">–</div>
+        <div class="lbl">Blended Life Path</div>
+        <div class="kw" id="kwB"></div>
+      </div>
+    </div>
+    <div class="breakdown">
+      <h3>How the numbers break down</h3>
+      <ul id="steps"></ul>
+    </div>
+    <div class="cta-box">
+      <h3>Unlock Your Full 13-Month Compatibility &amp; 2027 Forecast</h3>
+      <p>Get a personalized multi-page PDF covering your full family number cluster, relationship alignment, and Personal Year roadmap.</p>
+      <!-- Replace the href below with your live Gumroad or Payhip product URL -->
+      <a class="cta-btn" href="https://gumroad.com" target="_blank" rel="noopener">Get Full Custom PDF Report ($5)</a>
+    </div>
+  </section>
+  <section class="card" aria-label="The 13 months">
+    <h2>The 13 months</h2>
+    <p style="color:var(--ink-soft);font-size:15px;margin-bottom:14px">Every month has exactly 28 days — four clean weeks. The extra month, <strong style="color:var(--gold)">Sol</strong>, sits between June and July. Your converted month is highlighted.</p>
+    <div class="months" id="months"></div>
+  </section>
+  <section class="card" aria-label="How it works">
+    <h2>How it works</h2>
+    <ul class="plain-list">
+      <li><strong>Day of year first.</strong> Your birthday is counted as a day number (1–365, or 1–366 in a leap year), then dealt into 28-day months: month = which block of 28 it falls in, day = its position in that block.</li>
+      <li><strong>Year Day.</strong> Day 365 doesn't belong to any month — it stands alone at the end of the year (Dec 31 on the Gregorian calendar).</li>
+      <li><strong>Leap Day.</strong> In a leap year, day 181 (Jun 29) is pulled out as a standalone Leap Day, and every day after it shifts back one so the 28-day months stay aligned.</li>
+      <li><strong>Life Path numbers.</strong> Month, day, and year are each reduced to a single digit — except the master numbers 11, 22, and 33, which are kept whole — then added and reduced again. The year is always reduced all the way down (no master numbers kept for the year). The blended number adds the Gregorian and 13-month Life Paths together and reduces once more.</li>
+    </ul>
+    <details>
+      <summary>The original Python code</summary>
+      <div class="code-wrap">
+        <button class="copy-btn" id="copyBtn" type="button">Copy code</button>
+        <pre id="pyCode">import datetime
+
+MONTHS_13 = [
+    "January", "February", "March", "April", "May", "June", "Sol",
+    "July", "August", "September", "October", "November", "December"
+]
+
+def reduce_num(n, keep_masters=True):
+    masters = {11, 22, 33}
+    while n &gt; 9 and not (keep_masters and n in masters):
+        n = sum(int(d) for d in str(n))
+    return n
+
+def convert_birthday(year, month, day):
+    bday = datetime.date(year, month, day)
+    is_leap = (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))
+    day_of_year = bday.timetuple().tm_yday
+
+    # Gregorian Life Path
+    g_lp = reduce_num(
+        reduce_num(month) + reduce_num(day) + reduce_num(year, keep_masters=False)
+    )
+
+    # Adjust for standalone Leap Day (after June 28 = Day 180 in leap years)
+    if is_leap and day_of_year == 181:
+        return "Leap Day (Standalone)", g_lp, None, None
+    if is_leap and day_of_year &gt; 181:
+        day_of_year -= 1
+    if day_of_year == 365:
+        return "Year Day (Standalone)", g_lp, None, None
+
+    # 13-Month Date &amp; Life Path
+    m13_num = ((day_of_year - 1) // 28) + 1
+    d13_num = ((day_of_year - 1) % 28) + 1
+    m13_name = MONTHS_13[m13_num - 1]
+
+    lp_13 = reduce_num(
+        reduce_num(m13_num) + reduce_num(d13_num) + reduce_num(year, keep_masters=False)
+    )
+    blended_lp = reduce_num(g_lp + lp_13)
+
+    return f"{m13_name} {d13_num}, {year} (Month {m13_num})", g_lp, lp_13, blended_lp
+
+# --- Example Usage ---
+date_13, greg_lp, new_lp, combined = convert_birthday(1993, 8, 4)
+print(f"13-Month Date: {date_13}")
+print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")</pre>
+      </div>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:10px">This page runs the exact same logic in JavaScript, so the converter above and the Python agree on every date — including the master numbers, the standalone Leap Day, and the Year Day.</p>
+    </details>
+  </section>
+  <footer>Runs entirely on this page — pick a date and it converts instantly.</footer>
+</main>
+<script>
+(function(){
+  "use strict";
+  var MONTHS_13 = ["January","February","March","April","May","June","Sol","July","August","September","October","November","December"];
+  var GREG_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var KEYWORDS = {
+    1:"The Leader", 2:"The Diplomat", 3:"The Creator", 4:"The Builder",
+    5:"The Freedom Seeker", 6:"The Nurturer", 7:"The Seeker", 8:"The Powerhouse",
+    9:"The Humanitarian", 11:"Master Number — The Intuitive", 22:"Master Number — The Master Builder",
+    33:"Master Number — The Master Teacher"
+  };
+  function isLeap(y){ return (y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)); }
+  function dayOfYear(y, m, d){
+    var days = [31, isLeap(y)?29:28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var total = d;
+    for (var i = 0; i < m - 1; i++) total += days[i];
+    return total;
+  }
+  function reduceNum(n, keepMasters){
+    if (keepMasters === undefined) keepMasters = true;
+    var masters = {11:true, 22:true, 33:true};
+    while (n > 9 && !(keepMasters && masters[n])){
+      var s = 0, str = String(n);
+      for (var i = 0; i < str.length; i++) s += parseInt(str.charAt(i), 10);
+      n = s;
+    }
+    return n;
+  }
+  function convertBirthday(year, month, day){
+    var leap = isLeap(year);
+    var doy = dayOfYear(year, month, day);
+    var rawDoy = doy;
+    var rm = reduceNum(month), rd = reduceNum(day), ry = reduceNum(year, false);
+    var gLp = reduceNum(rm + rd + ry);
+    var trace = {
+      leap: leap, rawDoy: rawDoy, rm: rm, rd: rd, ry: ry, gSum: rm + rd + ry
+    };
+    if (leap && doy === 181){
+      return { kind:"leap", label:"Leap Day (Standalone)", gLp:gLp, lp13:null, blended:null, trace:trace };
+    }
+    if (leap && doy > 181){ doy -= 1; trace.adjusted = true; }
+    trace.doy = doy;
+    if (doy === 365){
+      return { kind:"year", label:"Year Day (Standalone)", gLp:gLp, lp13:null, blended:null, trace:trace };
+    }
+    var m13num = Math.floor((doy - 1) / 28) + 1;
+    var d13num = ((doy - 1) % 28) + 1;
+    var m13name = MONTHS_13[m13num - 1];
+    var rm13 = reduceNum(m13num), rd13 = reduceNum(d13num);
+    var lp13 = reduceNum(rm13 + rd13 + ry);
+    var blended = reduceNum(gLp + lp13);
+    trace.m13num = m13num; trace.d13num = d13num; trace.rm13 = rm13; trace.rd13 = rd13;
+    trace.lp13Sum = rm13 + rd13 + ry; trace.blendSum = gLp + lp13;
+    return {
+      kind:"date",
+      label: m13name + " " + d13num + ", " + year + " (Month " + m13num + ")",
+      m13num: m13num, d13num: d13num, m13name: m13name,
+      gLp: gLp, lp13: lp13, blended: blended, trace: trace
+    };
+  }
+  var input = document.getElementById("bday");
+  var err = document.getElementById("err");
+  var echo = document.getElementById("inputEcho");
+  var resultDate = document.getElementById("resultDate");
+  var banner = document.getElementById("standaloneBanner");
+  var steps = document.getElementById("steps");
+  var monthsEl = document.getElementById("months");
+  MONTHS_13.forEach(function(name, i){
+    var div = document.createElement("div");
+    div.className = "month" + (name === "Sol" ? " sol" : "");
+    div.id = "month-" + (i + 1);
+    div.innerHTML = '<div class="mnum">Month ' + (i + 1) + '</div>' +
+                    '<div class="mname">' + name + '</div>' +
+                    '<div class="mdays">28 days</div>';
+    monthsEl.appendChild(div);
+  });
+  function setLp(boxId, numId, kwId, val){
+    var box = document.getElementById(boxId);
+    var num = document.getElementById(numId);
+    var kw = document.getElementById(kwId);
+    if (val === null || val === undefined){
+      num.textContent = "—";
+      kw.textContent = "Standalone day";
+      box.classList.remove("master");
+      return;
+    }
+    num.textContent = val;
+    kw.textContent = KEYWORDS[val] || "";
+    box.classList.toggle("master", val === 11 || val === 22 || val === 33);
+  }
+  function run(){
+    var v = input.value;
+    var parts = v ? v.split("-") : [];
+    if (parts.length !== 3){ err.style.display = "block"; return; }
+    var year = parseInt(parts[0], 10), month = parseInt(parts[1], 10), day = parseInt(parts[2], 10);
+    if (!year || !month || !day || month < 1 || month > 12 || day < 1 || day > 31){
+      err.style.display = "block"; return;
+    }
+    err.style.display = "none";
+    var r = convertBirthday(year, month, day);
+    var t = r.trace;
+    echo.textContent = GREG_MONTHS[month - 1] + " " + day + ", " + year + " on the 13-month calendar is";
+    resultDate.textContent = r.label;
+    if (r.kind === "leap"){
+      banner.style.display = "block";
+      banner.textContent = "This birthday is the standalone Leap Day — it belongs to no month. It only exists in leap years, sitting right after Sol 28 (day 181 of the year).";
+    } else if (r.kind === "year"){
+      banner.style.display = "block";
+      banner.textContent = "This birthday is the standalone Year Day — day 365, the one day of the year that belongs to no month. It falls on Dec 31.";
+    } else {
+      banner.style.display = "none";
+    }
+    setLp("boxG", "lpG", "kwG", r.gLp);
+    setLp("box13", "lp13", "kw13", r.lp13);
+    setLp("boxB", "lpB", "kwB", r.blended);
+    for (var i = 1; i <= 13; i++){
+      document.getElementById("month-" + i).classList.toggle("active", r.kind === "date" && r.m13num === i);
+    }
+    var html = "";
+    html += "<li>Day of year: <code>" + t.rawDoy + "</code> of " + (t.leap ? "366 (leap year)" : "365") + ".</li>";
+    html += "<li>Gregorian Life Path: month <code>" + month + " → " + t.rm + "</code> + day <code>" + day + " → " + t.rd + "</code> + year <code>" + year + " → " + t.ry + "</code> = <code>" + t.gSum + "</code>, reduced to <code>" + r.gLp + "</code>.</li>";
+    if (r.kind === "leap"){
+      html += "<li>Day 181 in a leap year is the standalone Leap Day, so there is no 13-month date, 13-month Life Path, or blended number for it.</li>";
+    } else {
+      if (t.adjusted) html += "<li>Leap-year shift: after the standalone Leap Day, the day count moves back one to <code>" + t.doy + "</code> so the 28-day months stay aligned.</li>";
+      if (r.kind === "year"){
+        html += "<li>Day <code>365</code> is the standalone Year Day, so there is no 13-month Life Path or blended number for it.</li>";
+      } else {
+        html += "<li>13-month date: day <code>" + t.doy + "</code> lands in month <code>" + r.m13num + "</code> (" + r.m13name + "), day <code>" + r.d13num + "</code> — every month is 28 days.</li>";
+        html += "<li>13-Month Life Path: month <code>" + r.m13num + " → " + t.rm13 + "</code> + day <code>" + r.d13num + " → " + t.rd13 + "</code> + year <code>" + year + " → " + t.ry + "</code> = <code>" + t.lp13Sum + "</code>, reduced to <code>" + r.lp13 + "</code>.</li>";
+        html += "<li>Blended Life Path: <code>" + r.gLp + " + " + r.lp13 + " = " + t.blendSum + "</code>, reduced to <code>" + r.blended + "</code>.</li>";
+      }
+    }
+    steps.innerHTML = html;
+    if (document.getElementById("compareSection").classList.contains("open")) runCompare();
+  }
+  function parseInput(el){
+    var v = el.value;
+    var parts = v ? v.split("-") : [];
+    if (parts.length !== 3) return null;
+    var year = parseInt(parts[0], 10), month = parseInt(parts[1], 10), day = parseInt(parts[2], 10);
+    if (!year || !month || !day || month < 1 || month > 12 || day < 1 || day > 31) return null;
+    return { year: year, month: month, day: day };
+  }
+  function personCard(who, p, r){
+    function row(label, val){
+      return "<li><span>" + label + "</span><strong>" + (val === null || val === undefined ? "—" : val) + "</strong></li>";
+    }
+    var given = GREG_MONTHS[p.month - 1] + " " + p.day + ", " + p.year;
+    return '<div class="compare-person">' +
+      '<div class="who">' + who + '</div>' +
+      '<div class="cdate">' + r.label + '</div>' +
+      '<div class="cgiven">Born ' + given + '</div>' +
+      '<ul>' +
+      row("Gregorian Life Path", r.gLp) +
+      row("13-Month Life Path", r.lp13) +
+      row("Blended Life Path", r.blended) +
+      '</ul></div>';
+  }
+  function runCompare(){
+    var input2 = document.getElementById("bday2");
+    var err2 = document.getElementById("err2");
+    var out = document.getElementById("compareOutput");
+    var p1 = parseInput(input);
+    var p2 = parseInput(input2);
+    if (!p1 || !p2){ err2.style.display = "block"; out.innerHTML = ""; return; }
+    err2.style.display = "none";
+    var r1 = convertBirthday(p1.year, p1.month, p1.day);
+    var r2 = convertBirthday(p2.year, p2.month, p2.day);
+    var note;
+    if (r1.lp13 === null || r2.lp13 === null){
+      note = "One of these birthdays is a standalone day (Leap Day or Year Day), so it carries no 13-month Life Path to pair up. The Gregorian numbers above still show how the two of you line up.";
+    } else {
+      var pair = reduceNum(r1.lp13 + r2.lp13);
+      var pairKw = KEYWORDS[pair] || "";
+      if (r1.lp13 === r2.lp13){
+        note = "Mirror numbers: you share the same 13-month Life Path (" + r1.lp13 + "). Two people on the same number tend to understand each other's rhythm instinctively. Together your pair reduces to " + pair + (pairKw ? " — " + pairKw : "") + ".";
+      } else if (r1.blended !== null && r1.blended === r2.blended){
+        note = "Different paths, same blend: your 13-month Life Paths differ (" + r1.lp13 + " and " + r2.lp13 + "), but both blend to " + r1.blended + " — a sign you balance each other out. Together your pair reduces to " + pair + (pairKw ? " — " + pairKw : "") + ".";
+      } else {
+        note = "Your 13-month Life Paths are " + r1.lp13 + " and " + r2.lp13 + ". Added together they reduce to " + pair + (pairKw ? " — " + pairKw : "") + ", the energy the two of you create as a pair.";
+      }
+    }
+    out.innerHTML =
+      '<div class="compare-grid">' +
+      personCard("You", p1, r1) +
+      personCard("Partner / Child", p2, r2) +
+      '</div>' +
+      '<div class="compare-note">' + note + '</div>';
+  }
+  var compareToggle = document.getElementById("compareToggle");
+  var compareSection = document.getElementById("compareSection");
+  compareToggle.addEventListener("click", function(){
+    var open = compareSection.classList.toggle("open");
+    compareToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    compareToggle.textContent = open ? "− Hide Comparison" : "+ Compare With Partner or Child";
+    if (open) runCompare();
+  });
+  document.getElementById("compareBtn").addEventListener("click", runCompare);
+  document.getElementById("bday2").addEventListener("change", runCompare);
+  document.getElementById("convertBtn").addEventListener("click", run);
+  input.addEventListener("change", run);
+  input.addEventListener("input", run);
+  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(chip){
+    chip.addEventListener("click", function(){
+      input.value = chip.getAttribute("data-date");
+      run();
+    });
+  });
+  var copyBtn = document.getElementById("copyBtn");
+  copyBtn.addEventListener("click", function(){
+    var text = document.getElementById("pyCode").textContent;
+    function done(){ copyBtn.textContent = "Copied ✓"; setTimeout(function(){ copyBtn.textContent = "Copy code"; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, done);
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch(e){}
+      document.body.removeChild(ta); done();
+    }
+  });
+  run();
+})();
+</script>
+</body>
+</html>
