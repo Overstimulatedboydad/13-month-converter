@@ -58,6 +58,11 @@
   p{margin:0}
   .lede{color:var(--ink-soft);font-size:17px;max-width:62ch;margin-top:10px}
   .lede strong{color:var(--ink)}
+  .today-line{
+    margin-top:14px;font-size:15.5px;background:var(--surface);border:1px solid var(--line);
+    border-radius:8px;padding:10px 14px;box-shadow:var(--shadow);
+  }
+  .today-line strong{color:var(--accent)}
   .rule{height:3px;background:var(--accent);border-radius:2px;width:64px;margin:18px 0 0}
 
   .card{
@@ -142,6 +147,18 @@
   .breakdown ul{margin:0;padding-left:20px;color:var(--ink-soft);font-size:15px}
   .breakdown li{margin:4px 0}
   .breakdown code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13.5px;color:var(--ink)}
+  .py-strip{
+    margin-top:12px;background:var(--surface-2);border-radius:8px;padding:16px;
+    display:flex;gap:18px;align-items:center;
+  }
+  .py-strip .num{font-family:"Newsreader",Georgia,serif;font-size:44px;font-weight:700;line-height:1;color:var(--gold)}
+  .py-strip .lbl{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  .py-strip .note{font-size:14px;color:var(--ink-soft);margin-top:2px}
+  .copy-result-btn{
+    margin-top:18px;min-height:44px;padding:8px 16px;font-size:14.5px;font-weight:600;
+    background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:8px;
+  }
+  .copy-result-btn:active{transform:translateY(1px)}
 
   .months{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin-top:6px}
   .month{
@@ -153,6 +170,8 @@
   .month .mdays{color:var(--ink-soft);font-size:12.5px}
   .month.active{border-color:var(--accent);background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--accent)}
   .month.active .mname{color:var(--accent)}
+  .month .bday{display:none;margin-top:6px;font-size:13px;font-weight:700;color:var(--accent)}
+  .month.active .bday{display:block}
   .month.sol .mname{color:var(--gold)}
   .plain-list{margin:0;padding-left:20px;color:var(--ink-soft)}
   .plain-list li{margin:6px 0}
@@ -182,6 +201,7 @@
   <h1>Life Path Converter</h1>
   <div class="rule"></div>
   <p class="lede">Enter any Gregorian birthday and see the same day on the <strong>13-month calendar</strong> — thirteen months of exactly 28 days (364 days), plus one standalone <strong>Year Day</strong>, and a <strong>Leap Day</strong> in leap years. It also works out your Life Path number three ways: Gregorian, 13-month, and blended.</p>
+  <p class="today-line" id="todayLine"></p>
 
   <section class="card" aria-label="Converter">
     <label class="field-label" for="bday">Your Gregorian birthday</label>
@@ -232,10 +252,20 @@
       </div>
     </div>
 
+    <div class="py-strip">
+      <div class="num" id="pyNum">–</div>
+      <div>
+        <div class="lbl">Your 2027 Personal Year</div>
+        <div class="note">Your full 2027 Personal Year roadmap is in the $9 report below.</div>
+      </div>
+    </div>
+
     <div class="breakdown">
       <h3>How the numbers break down</h3>
       <ul id="steps"></ul>
     </div>
+
+    <button class="copy-result-btn" id="copyResultBtn" type="button">Copy result</button>
 
     <div class="cta-box">
       <h3>Unlock Your Full 13-Month Compatibility &amp; 2027 Forecast</h3>
@@ -248,6 +278,12 @@
     <h2>The 13 months</h2>
     <p style="color:var(--ink-soft);font-size:15px;margin-bottom:14px">Every month has exactly 28 days — four clean weeks. The extra month, <strong style="color:var(--gold)">Sol</strong>, sits between June and July. Your converted month is highlighted.</p>
     <div class="months" id="months"></div>
+  </section>
+
+  <section class="card" aria-label="The Gregorian calendar">
+    <h2>The Gregorian calendar</h2>
+    <p style="color:var(--ink-soft);font-size:15px;margin-bottom:14px">The familiar 12-month calendar — months of 28 to 31 days. Your birth month is highlighted, with your birth day shown inside it.</p>
+    <div class="months" id="gregMonths"></div>
   </section>
 
   <section class="card" aria-label="How it works">
@@ -310,7 +346,6 @@ def convert_birthday(year, month, day):
 date_13, greg_lp, new_lp, combined = convert_birthday(1993, 8, 4)
 print(f"13-Month Date: {date_13}")
 print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")</pre>
-
       </div>
       <p style="color:var(--ink-soft);font-size:14px;margin-top:10px">This page runs the exact same logic in JavaScript, so the converter above and the Python agree on every date — including the master numbers, the standalone Leap Day, and the Year Day.</p>
     </details>
@@ -392,6 +427,17 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
     };
   }
 
+  // "Today on the 13-month calendar" — convert today's date on load.
+  (function(){
+    var now = new Date();
+    var tr = convertBirthday(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    document.getElementById("todayLine").innerHTML =
+      "Today, " + GREG_MONTHS[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear() +
+      ", is <strong>" + tr.label + "</strong> on the 13-month calendar.";
+  })();
+
+  var lastResult = null; // {gregLabel, r} from the most recent run(), for Copy result.
+
   var input = document.getElementById("bday");
   var err = document.getElementById("err");
   var echo = document.getElementById("inputEcho");
@@ -399,6 +445,7 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
   var banner = document.getElementById("standaloneBanner");
   var steps = document.getElementById("steps");
   var monthsEl = document.getElementById("months");
+  var gregMonthsEl = document.getElementById("gregMonths");
 
   // Build the 13-month grid once.
   MONTHS_13.forEach(function(name, i){
@@ -409,6 +456,20 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
                     '<div class="mname">' + name + '</div>' +
                     '<div class="mdays">28 days</div>';
     monthsEl.appendChild(div);
+  });
+
+  // Build the Gregorian month grid once. February's day count updates in run()
+  // (29 in a leap year, 28 otherwise).
+  var GREG_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  GREG_MONTHS.forEach(function(name, i){
+    var div = document.createElement("div");
+    div.className = "month";
+    div.id = "gmonth-" + (i + 1);
+    div.innerHTML = '<div class="mnum">Month ' + (i + 1) + '</div>' +
+                    '<div class="mname">' + name + '</div>' +
+                    '<div class="mdays" id="gdays-' + (i + 1) + '">' + GREG_DAYS[i] + ' days</div>' +
+                    '<div class="bday" id="gbday-' + (i + 1) + '"></div>';
+    gregMonthsEl.appendChild(div);
   });
 
   function setLp(boxId, numId, kwId, val){
@@ -455,9 +516,25 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
     setLp("box13", "lp13", "kw13", r.lp13);
     setLp("boxB", "lpB", "kwB", r.blended);
 
+    // 2027 Personal Year: birth month + birth day + 2027, reduced to a
+    // single digit 1–9 (no master numbers kept).
+    var py = reduceNum(reduceNum(month, false) + reduceNum(day, false) + reduceNum(2027, false), false);
+    document.getElementById("pyNum").textContent = py;
+    r.py2027 = py;
+
+    lastResult = { gregLabel: GREG_MONTHS[month - 1] + " " + day + ", " + year, r: r };
+
     // Highlight the converted month.
     for (var i = 1; i <= 13; i++){
       document.getElementById("month-" + i).classList.toggle("active", r.kind === "date" && r.m13num === i);
+    }
+
+    // Highlight the Gregorian birth month and show the birth day inside it.
+    // February shows 29 days when the birth year is a leap year.
+    document.getElementById("gdays-2").textContent = (t.leap ? 29 : 28) + " days";
+    for (var j = 1; j <= 12; j++){
+      document.getElementById("gmonth-" + j).classList.toggle("active", j === month);
+      document.getElementById("gbday-" + j).textContent = (j === month) ? "Born on day " + day : "";
     }
 
     // Breakdown steps.
@@ -561,6 +638,34 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
       input.value = chip.getAttribute("data-date");
       run();
     });
+  });
+
+  var copyResultBtn = document.getElementById("copyResultBtn");
+  copyResultBtn.addEventListener("click", function(){
+    if (!lastResult) return;
+    var r = lastResult.r;
+    function lpLine(label, val){
+      if (val === null || val === undefined) return label + ": — (standalone day)";
+      return label + ": " + val + (KEYWORDS[val] ? " — " + KEYWORDS[val] : "");
+    }
+    var text =
+      "Life Path Converter\n" +
+      "Born: " + lastResult.gregLabel + "\n" +
+      "13-Month Birthday: " + r.label + "\n" +
+      lpLine("Gregorian Life Path", r.gLp) + "\n" +
+      lpLine("13-Month Life Path", r.lp13) + "\n" +
+      lpLine("Blended Life Path", r.blended) + "\n" +
+      "2027 Personal Year: " + r.py2027 + "\n" +
+      "https://overstimulatedboydad.github.io/13-month-converter/";
+    function done(){ copyResultBtn.textContent = "Copied ✓"; setTimeout(function(){ copyResultBtn.textContent = "Copy result"; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, done);
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch(e){}
+      document.body.removeChild(ta); done();
+    }
   });
 
   var copyBtn = document.getElementById("copyBtn");
