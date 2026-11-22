@@ -64,7 +64,6 @@
   }
   .today-line strong{color:var(--accent)}
   .rule{height:3px;background:var(--accent);border-radius:2px;width:64px;margin:18px 0 0}
-
   .card{
     background:var(--surface);border:1px solid var(--line);border-radius:10px;
     box-shadow:var(--shadow);padding:22px;margin-top:26px;
@@ -124,8 +123,10 @@
     background:var(--accent);color:var(--accent-ink);border-radius:8px;
   }
   .cta-btn:active{transform:translateY(1px)}
+  .cta-links{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+  .cta-links span{display:block;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+  .cta-links a{display:inline-block;margin:4px 6px;font-size:14.5px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
   @media (prefers-color-scheme: dark){.err{color:#f2b8b5}}
-
   .result-date{
     font-family:"Newsreader",Georgia,serif;font-size:clamp(30px,6.5vw,42px);
     font-weight:700;line-height:1.1;
@@ -159,7 +160,6 @@
     background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:8px;
   }
   .copy-result-btn:active{transform:translateY(1px)}
-
   .months{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;margin-top:6px}
   .month{
     border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface);
@@ -176,7 +176,6 @@
   .plain-list{margin:0;padding-left:20px;color:var(--ink-soft)}
   .plain-list li{margin:6px 0}
   .plain-list strong{color:var(--ink)}
-
   details{margin-top:26px}
   summary{
     cursor:pointer;font-family:"Newsreader",Georgia,serif;font-size:20px;font-weight:600;
@@ -197,12 +196,10 @@
 </head>
 <body>
 <main class="wrap">
-
   <h1>Life Path Converter</h1>
   <div class="rule"></div>
   <p class="lede">Enter any Gregorian birthday and see the same day on the <strong>13-month calendar</strong> — thirteen months of exactly 28 days (364 days), plus one standalone <strong>Year Day</strong>, and a <strong>Leap Day</strong> in leap years. It also works out your Life Path number three ways: Gregorian, 13-month, and blended.</p>
   <p class="today-line" id="todayLine"></p>
-
   <section class="card" aria-label="Converter">
     <label class="field-label" for="bday">Your Gregorian birthday</label>
     <div class="input-row">
@@ -216,7 +213,6 @@
       <button class="chip" type="button" data-date="2000-06-29">Jun 29, 2000 (Leap Day)</button>
       <button class="chip" type="button" data-date="1990-12-31">Dec 31, 1990 (Year Day)</button>
     </div>
-
     <button class="toggle-btn" id="compareToggle" type="button" aria-expanded="false" aria-controls="compareSection">+ Compare With Partner or Child</button>
     <div class="compare-section" id="compareSection">
       <label class="field-label" for="bday2">Second birthday (partner / child)</label>
@@ -227,13 +223,11 @@
       <p class="err" id="err2">Please pick a valid second date first.</p>
       <div id="compareOutput"></div>
     </div>
-
     <div style="margin-top:24px">
       <p class="result-sub" id="inputEcho">August 4, 1993 on the 13-month calendar is</p>
       <p class="result-date" id="resultDate">—</p>
       <div class="standalone-banner" id="standaloneBanner"></div>
     </div>
-
     <div class="lp-grid">
       <div class="lp-box" id="boxG">
         <div class="num" id="lpG">–</div>
@@ -251,7 +245,6 @@
         <div class="kw" id="kwB"></div>
       </div>
     </div>
-
     <div class="py-strip">
       <div class="num" id="pyNum">–</div>
       <div>
@@ -259,33 +252,36 @@
         <div class="note">Your full 2027 Personal Year roadmap is in the $9 report below.</div>
       </div>
     </div>
-
     <div class="breakdown">
       <h3>How the numbers break down</h3>
       <ul id="steps"></ul>
     </div>
-
     <button class="copy-result-btn" id="copyResultBtn" type="button">Copy result</button>
-
     <div class="cta-box">
       <h3>Unlock Your Full 13-Month Compatibility &amp; 2027 Forecast</h3>
       <p>Get a personalized multi-page PDF covering your full family number cluster, relationship alignment, and Personal Year roadmap.</p>
-      <a class="cta-btn" href="https://powerhouse352.gumroad.com/l/full-13-month-birthday-report" target="_blank" rel="noopener">Get Full Custom PDF Report ($9)</a>
+      <a class="cta-btn" href="https://powerhouse352.gumroad.com/l/full-13-month-birthday-report?offer_code=FIRST100" target="_blank" rel="noopener">Get Full Custom PDF Report ($9)</a>
+      <div class="cta-links">
+        <span>More reports</span>
+        <a href="https://powerhouse352.gumroad.com/l/sijdd?offer_code=FIRST100" target="_blank" rel="noopener">Family — $19</a>
+        <a href="https://powerhouse352.gumroad.com/l/ucvvov?offer_code=FIRST100" target="_blank" rel="noopener">Friends — $15</a>
+        <a href="https://powerhouse352.gumroad.com/l/soikdt?offer_code=FIRST100" target="_blank" rel="noopener">Ex — $9</a>
+        <a href="https://powerhouse352.gumroad.com/l/fhpphi?offer_code=FIRST100" target="_blank" rel="noopener">Grandparents — $15</a>
+        <a href="https://powerhouse352.gumroad.com/l/vkkpdu" target="_blank" rel="noopener">2027 Personal Year Forecast — $9</a>
+        <a href="https://powerhouse352.gumroad.com/l/hjtql" target="_blank" rel="noopener">Printable 13-Month Calendar 2027 — $7</a>
+      </div>
     </div>
   </section>
-
   <section class="card" aria-label="The 13 months">
     <h2>The 13 months</h2>
     <p style="color:var(--ink-soft);font-size:15px;margin-bottom:14px">Every month has exactly 28 days — four clean weeks. The extra month, <strong style="color:var(--gold)">Sol</strong>, sits between June and July. Your converted month is highlighted.</p>
     <div class="months" id="months"></div>
   </section>
-
   <section class="card" aria-label="The Gregorian calendar">
     <h2>The Gregorian calendar</h2>
     <p style="color:var(--ink-soft);font-size:15px;margin-bottom:14px">The familiar 12-month calendar — months of 28 to 31 days. Your birth month is highlighted, with your birth day shown inside it.</p>
     <div class="months" id="gregMonths"></div>
   </section>
-
   <section class="card" aria-label="How it works">
     <h2>How it works</h2>
     <ul class="plain-list">
@@ -294,7 +290,6 @@
       <li><strong>Leap Day.</strong> In a leap year, day 181 (Jun 29) is pulled out as a standalone Leap Day, and every day after it shifts back one so the 28-day months stay aligned.</li>
       <li><strong>Life Path numbers.</strong> Month, day, and year are each reduced to a single digit — except the master numbers 11, 22, and 33, which are kept whole — then added and reduced again. The year is always reduced all the way down (no master numbers kept for the year). The blended number adds the Gregorian and 13-month Life Paths together and reduces once more.</li>
     </ul>
-
     <details>
       <summary>The original Python code</summary>
       <div class="code-wrap">
@@ -350,10 +345,8 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
       <p style="color:var(--ink-soft);font-size:14px;margin-top:10px">This page runs the exact same logic in JavaScript, so the converter above and the Python agree on every date — including the master numbers, the standalone Leap Day, and the Year Day.</p>
     </details>
   </section>
-
   <footer>Runs entirely on this page — pick a date and it converts instantly.</footer>
 </main>
-
 <script>
 (function(){
   "use strict";
@@ -365,17 +358,13 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
     9:"The Humanitarian", 11:"Master Number — The Intuitive", 22:"Master Number — The Master Builder",
     33:"Master Number — The Master Teacher"
   };
-
   function isLeap(y){ return (y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)); }
-
   function dayOfYear(y, m, d){
     var days = [31, isLeap(y)?29:28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     var total = d;
     for (var i = 0; i < m - 1; i++) total += days[i];
     return total;
   }
-
-  // Faithful port of reduce_num(): keep 11/22/33 whole unless keepMasters is false.
   function reduceNum(n, keepMasters){
     if (keepMasters === undefined) keepMasters = true;
     var masters = {11:true, 22:true, 33:true};
@@ -386,19 +375,13 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
     }
     return n;
   }
-
-  // Faithful port of convert_birthday(). Returns trace info for the breakdown.
   function convertBirthday(year, month, day){
     var leap = isLeap(year);
     var doy = dayOfYear(year, month, day);
     var rawDoy = doy;
-
     var rm = reduceNum(month), rd = reduceNum(day), ry = reduceNum(year, false);
     var gLp = reduceNum(rm + rd + ry);
-    var trace = {
-      leap: leap, rawDoy: rawDoy, rm: rm, rd: rd, ry: ry, gSum: rm + rd + ry
-    };
-
+    var trace = { leap: leap, rawDoy: rawDoy, rm: rm, rd: rd, ry: ry, gSum: rm + rd + ry };
     if (leap && doy === 181){
       return { kind:"leap", label:"Leap Day (Standalone)", gLp:gLp, lp13:null, blended:null, trace:trace };
     }
@@ -407,37 +390,22 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
     if (doy === 365){
       return { kind:"year", label:"Year Day (Standalone)", gLp:gLp, lp13:null, blended:null, trace:trace };
     }
-
     var m13num = Math.floor((doy - 1) / 28) + 1;
     var d13num = ((doy - 1) % 28) + 1;
     var m13name = MONTHS_13[m13num - 1];
-
     var rm13 = reduceNum(m13num), rd13 = reduceNum(d13num);
     var lp13 = reduceNum(rm13 + rd13 + ry);
     var blended = reduceNum(gLp + lp13);
-
     trace.m13num = m13num; trace.d13num = d13num; trace.rm13 = rm13; trace.rd13 = rd13;
     trace.lp13Sum = rm13 + rd13 + ry; trace.blendSum = gLp + lp13;
-
-    return {
-      kind:"date",
-      label: m13name + " " + d13num + ", " + year + " (Month " + m13num + ")",
-      m13num: m13num, d13num: d13num, m13name: m13name,
-      gLp: gLp, lp13: lp13, blended: blended, trace: trace
-    };
+    return { kind:"date", label: m13name + " " + d13num + ", " + year + " (Month " + m13num + ")", m13num: m13num, d13num: d13num, m13name: m13name, gLp: gLp, lp13: lp13, blended: blended, trace: trace };
   }
-
-  // "Today on the 13-month calendar" — convert today's date on load.
   (function(){
     var now = new Date();
     var tr = convertBirthday(now.getFullYear(), now.getMonth() + 1, now.getDate());
-    document.getElementById("todayLine").innerHTML =
-      "Today, " + GREG_MONTHS[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear() +
-      ", is <strong>" + tr.label + "</strong> on the 13-month calendar.";
+    document.getElementById("todayLine").innerHTML = "Today, " + GREG_MONTHS[now.getMonth()] + " " + now.getDate() + ", " + now.getFullYear() + ", is <strong>" + tr.label + "</strong> on the 13-month calendar.";
   })();
-
-  var lastResult = null; // {gregLabel, r} from the most recent run(), for Copy result.
-
+  var lastResult = null;
   var input = document.getElementById("bday");
   var err = document.getElementById("err");
   var echo = document.getElementById("inputEcho");
@@ -446,242 +414,80 @@ print(f"Gregorian LP: {greg_lp} | 13-Month LP: {new_lp} | Combined: {combined}")
   var steps = document.getElementById("steps");
   var monthsEl = document.getElementById("months");
   var gregMonthsEl = document.getElementById("gregMonths");
-
-  // Build the 13-month grid once.
   MONTHS_13.forEach(function(name, i){
     var div = document.createElement("div");
     div.className = "month" + (name === "Sol" ? " sol" : "");
     div.id = "month-" + (i + 1);
-    div.innerHTML = '<div class="mnum">Month ' + (i + 1) + '</div>' +
-                    '<div class="mname">' + name + '</div>' +
-                    '<div class="mdays">28 days</div>';
+    div.innerHTML = '<div class="mnum">Month ' + (i + 1) + '</div>' + '<div class="mname">' + name + '</div>' + '<div class="mdays">28 days</div>';
     monthsEl.appendChild(div);
   });
-
-  // Build the Gregorian month grid once. February's day count updates in run()
-  // (29 in a leap year, 28 otherwise).
   var GREG_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   GREG_MONTHS.forEach(function(name, i){
     var div = document.createElement("div");
     div.className = "month";
     div.id = "gmonth-" + (i + 1);
-    div.innerHTML = '<div class="mnum">Month ' + (i + 1) + '</div>' +
-                    '<div class="mname">' + name + '</div>' +
-                    '<div class="mdays" id="gdays-' + (i + 1) + '">' + GREG_DAYS[i] + ' days</div>' +
-                    '<div class="bday" id="gbday-' + (i + 1) + '"></div>';
+    div.innerHTML = '<div class="mnum">Month ' + (i + 1) + '</div>' + '<div class="mname">' + name + '</div>' + '<div class="mdays" id="gdays-' + (i + 1) + '">' + GREG_DAYS[i] + ' days</div>' + '<div class="bday" id="gbday-' + (i + 1) + '"></div>';
     gregMonthsEl.appendChild(div);
   });
-
   function setLp(boxId, numId, kwId, val){
     var box = document.getElementById(boxId);
     var num = document.getElementById(numId);
     var kw = document.getElementById(kwId);
-    if (val === null || val === undefined){
-      num.textContent = "—";
-      kw.textContent = "Standalone day";
-      box.classList.remove("master");
-      return;
-    }
-    num.textContent = val;
-    kw.textContent = KEYWORDS[val] || "";
-    box.classList.toggle("master", val === 11 || val === 22 || val === 33);
+    if (val === null || val === undefined){ num.textContent = "—"; kw.textContent = "Standalone day"; box.classList.remove("master"); return; }
+    num.textContent = val; kw.textContent = KEYWORDS[val] || ""; box.classList.toggle("master", val === 11 || val === 22 || val === 33);
   }
-
   function run(){
     var v = input.value;
     var parts = v ? v.split("-") : [];
     if (parts.length !== 3){ err.style.display = "block"; return; }
     var year = parseInt(parts[0], 10), month = parseInt(parts[1], 10), day = parseInt(parts[2], 10);
-    if (!year || !month || !day || month < 1 || month > 12 || day < 1 || day > 31){
-      err.style.display = "block"; return;
-    }
+    if (!year || !month || !day || month < 1 || month > 12 || day < 1 || day > 31){ err.style.display = "block"; return; }
     err.style.display = "none";
-
     var r = convertBirthday(year, month, day);
     var t = r.trace;
     echo.textContent = GREG_MONTHS[month - 1] + " " + day + ", " + year + " on the 13-month calendar is";
     resultDate.textContent = r.label;
-
-    if (r.kind === "leap"){
-      banner.style.display = "block";
-      banner.textContent = "This birthday is the standalone Leap Day — it belongs to no month. It only exists in leap years, sitting right after Sol 28 (day 181 of the year).";
-    } else if (r.kind === "year"){
-      banner.style.display = "block";
-      banner.textContent = "This birthday is the standalone Year Day — day 365, the one day of the year that belongs to no month. It falls on Dec 31.";
-    } else {
-      banner.style.display = "none";
-    }
-
-    setLp("boxG", "lpG", "kwG", r.gLp);
-    setLp("box13", "lp13", "kw13", r.lp13);
-    setLp("boxB", "lpB", "kwB", r.blended);
-
-    // 2027 Personal Year: birth month + birth day + 2027, reduced to a
-    // single digit 1–9 (no master numbers kept).
+    if (r.kind === "leap"){ banner.style.display = "block"; banner.textContent = "This birthday is the standalone Leap Day — it belongs to no month. It only exists in leap years, sitting right after Sol 28 (day 181 of the year)."; }
+    else if (r.kind === "year"){ banner.style.display = "block"; banner.textContent = "This birthday is the standalone Year Day — day 365, the one day of the year that belongs to no month. It falls on Dec 31."; }
+    else { banner.style.display = "none"; }
+    setLp("boxG", "lpG", "kwG", r.gLp); setLp("box13", "lp13", "kw13", r.lp13); setLp("boxB", "lpB", "kwB", r.blended);
     var py = reduceNum(reduceNum(month, false) + reduceNum(day, false) + reduceNum(2027, false), false);
-    document.getElementById("pyNum").textContent = py;
-    r.py2027 = py;
-
+    document.getElementById("pyNum").textContent = py; r.py2027 = py;
     lastResult = { gregLabel: GREG_MONTHS[month - 1] + " " + day + ", " + year, r: r };
-
-    // Highlight the converted month.
-    for (var i = 1; i <= 13; i++){
-      document.getElementById("month-" + i).classList.toggle("active", r.kind === "date" && r.m13num === i);
-    }
-
-    // Highlight the Gregorian birth month and show the birth day inside it.
-    // February shows 29 days when the birth year is a leap year.
+    for (var i = 1; i <= 13; i++){ document.getElementById("month-" + i).classList.toggle("active", r.kind === "date" && r.m13num === i); }
     document.getElementById("gdays-2").textContent = (t.leap ? 29 : 28) + " days";
-    for (var j = 1; j <= 12; j++){
-      document.getElementById("gmonth-" + j).classList.toggle("active", j === month);
-      document.getElementById("gbday-" + j).textContent = (j === month) ? "Born on day " + day : "";
-    }
-
-    // Breakdown steps.
+    for (var j = 1; j <= 12; j++){ document.getElementById("gmonth-" + j).classList.toggle("active", j === month); document.getElementById("gbday-" + j).textContent = (j === month) ? "Born on day " + day : ""; }
     var html = "";
     html += "<li>Day of year: <code>" + t.rawDoy + "</code> of " + (t.leap ? "366 (leap year)" : "365") + ".</li>";
     html += "<li>Gregorian Life Path: month <code>" + month + " → " + t.rm + "</code> + day <code>" + day + " → " + t.rd + "</code> + year <code>" + year + " → " + t.ry + "</code> = <code>" + t.gSum + "</code>, reduced to <code>" + r.gLp + "</code>.</li>";
-    if (r.kind === "leap"){
-      html += "<li>Day 181 in a leap year is the standalone Leap Day, so there is no 13-month date, 13-month Life Path, or blended number for it.</li>";
-    } else {
+    if (r.kind === "leap"){ html += "<li>Day 181 in a leap year is the standalone Leap Day, so there is no 13-month date, 13-month Life Path, or blended number for it.</li>"; }
+    else {
       if (t.adjusted) html += "<li>Leap-year shift: after the standalone Leap Day, the day count moves back one to <code>" + t.doy + "</code> so the 28-day months stay aligned.</li>";
-      if (r.kind === "year"){
-        html += "<li>Day <code>365</code> is the standalone Year Day, so there is no 13-month Life Path or blended number for it.</li>";
-      } else {
+      if (r.kind === "year"){ html += "<li>Day <code>365</code> is the standalone Year Day, so there is no 13-month Life Path or blended number for it.</li>"; }
+      else {
         html += "<li>13-month date: day <code>" + t.doy + "</code> lands in month <code>" + r.m13num + "</code> (" + r.m13name + "), day <code>" + r.d13num + "</code> — every month is 28 days.</li>";
         html += "<li>13-Month Life Path: month <code>" + r.m13num + " → " + t.rm13 + "</code> + day <code>" + r.d13num + " → " + t.rd13 + "</code> + year <code>" + year + " → " + t.ry + "</code> = <code>" + t.lp13Sum + "</code>, reduced to <code>" + r.lp13 + "</code>.</li>";
         html += "<li>Blended Life Path: <code>" + r.gLp + " + " + r.lp13 + " = " + t.blendSum + "</code>, reduced to <code>" + r.blended + "</code>.</li>";
       }
     }
     steps.innerHTML = html;
-
-    // Keep an open comparison in sync with the main birthday.
     if (document.getElementById("compareSection").classList.contains("open")) runCompare();
   }
-
-  function parseInput(el){
-    var v = el.value;
-    var parts = v ? v.split("-") : [];
-    if (parts.length !== 3) return null;
-    var year = parseInt(parts[0], 10), month = parseInt(parts[1], 10), day = parseInt(parts[2], 10);
-    if (!year || !month || !day || month < 1 || month > 12 || day < 1 || day > 31) return null;
-    return { year: year, month: month, day: day };
-  }
-
-  function personCard(who, p, r){
-    function row(label, val){
-      return "<li><span>" + label + "</span><strong>" + (val === null || val === undefined ? "—" : val) + "</strong></li>";
-    }
-    var given = GREG_MONTHS[p.month - 1] + " " + p.day + ", " + p.year;
-    return '<div class="compare-person">' +
-      '<div class="who">' + who + '</div>' +
-      '<div class="cdate">' + r.label + '</div>' +
-      '<div class="cgiven">Born ' + given + '</div>' +
-      '<ul>' +
-      row("Gregorian Life Path", r.gLp) +
-      row("13-Month Life Path", r.lp13) +
-      row("Blended Life Path", r.blended) +
-      '</ul></div>';
-  }
-
+  function parseInput(el){ var v = el.value; var parts = v ? v.split("-") : []; if (parts.length !== 3) return null; var year = parseInt(parts[0], 10), month = parseInt(parts[1], 10), day = parseInt(parts[2], 10); if (!year || !month || !day || month < 1 || month > 12 || day < 1 || day > 31) return null; return { year: year, month: month, day: day }; }
+  function personCard(who, p, r){ function row(label, val){ return "<li><span>" + label + "</span><strong>" + (val === null || val === undefined ? "—" : val) + "</strong></li>"; } var given = GREG_MONTHS[p.month - 1] + " " + p.day + ", " + p.year; return '<div class="compare-person">' + '<div class="who">' + who + '</div>' + '<div class="cdate">' + r.label + '</div>' + '<div class="cgiven">Born ' + given + '</div>' + '<ul>' + row("Gregorian Life Path", r.gLp) + row("13-Month Life Path", r.lp13) + row("Blended Life Path", r.blended) + '</ul></div>'; }
   function runCompare(){
-    var input2 = document.getElementById("bday2");
-    var err2 = document.getElementById("err2");
-    var out = document.getElementById("compareOutput");
-    var p1 = parseInput(input);
-    var p2 = parseInput(input2);
-    if (!p1 || !p2){ err2.style.display = "block"; out.innerHTML = ""; return; }
-    err2.style.display = "none";
-
-    var r1 = convertBirthday(p1.year, p1.month, p1.day);
-    var r2 = convertBirthday(p2.year, p2.month, p2.day);
-
-    var note;
-    if (r1.lp13 === null || r2.lp13 === null){
-      note = "One of these birthdays is a standalone day (Leap Day or Year Day), so it carries no 13-month Life Path to pair up. The Gregorian numbers above still show how the two of you line up.";
-    } else {
-      var pair = reduceNum(r1.lp13 + r2.lp13);
-      var pairKw = KEYWORDS[pair] || "";
-      if (r1.lp13 === r2.lp13){
-        note = "Mirror numbers: you share the same 13-month Life Path (" + r1.lp13 + "). Two people on the same number tend to understand each other's rhythm instinctively. Together your pair reduces to " + pair + (pairKw ? " — " + pairKw : "") + ".";
-      } else if (r1.blended !== null && r1.blended === r2.blended){
-        note = "Different paths, same blend: your 13-month Life Paths differ (" + r1.lp13 + " and " + r2.lp13 + "), but both blend to " + r1.blended + " — a sign you balance each other out. Together your pair reduces to " + pair + (pairKw ? " — " + pairKw : "") + ".";
-      } else {
-        note = "Your 13-month Life Paths are " + r1.lp13 + " and " + r2.lp13 + ". Added together they reduce to " + pair + (pairKw ? " — " + pairKw : "") + ", the energy the two of you create as a pair.";
-      }
-    }
-
-    out.innerHTML =
-      '<div class="compare-grid">' +
-      personCard("You", p1, r1) +
-      personCard("Partner / Child", p2, r2) +
-      '</div>' +
-      '<div class="compare-note">' + note + '</div>';
+    var input2 = document.getElementById("bday2"); var err2 = document.getElementById("err2"); var out = document.getElementById("compareOutput"); var p1 = parseInput(input); var p2 = parseInput(input2); if (!p1 || !p2){ err2.style.display = "block"; out.innerHTML = ""; return; } err2.style.display = "none";
+    var r1 = convertBirthday(p1.year, p1.month, p1.day); var r2 = convertBirthday(p2.year, p2.month, p2.day); var note;
+    if (r1.lp13 === null || r2.lp13 === null){ note = "One of these birthdays is a standalone day (Leap Day or Year Day), so it carries no 13-month Life Path to pair up. The Gregorian numbers above still show how the two of you line up."; }
+    else { var pair = reduceNum(r1.lp13 + r2.lp13); var pairKw = KEYWORDS[pair] || ""; if (r1.lp13 === r2.lp13){ note = "Mirror numbers: you share the same 13-month Life Path (" + r1.lp13 + "). Two people on the same number tend to understand each other's rhythm instinctively. Together your pair reduces to " + pair + (pairKw ? " — " + pairKw : "") + "."; } else if (r1.blended !== null && r1.blended === r2.blended){ note = "Different paths, same blend: your 13-month Life Paths differ (" + r1.lp13 + " and " + r2.lp13 + "), but both blend to " + r1.blended + " — a sign you balance each other out. Together your pair reduces to " + pair + (pairKw ? " — " + pairKw : "") + "."; } else { note = "Your 13-month Life Paths are " + r1.lp13 + " and " + r2.lp13 + ". Added together they reduce to " + pair + (pairKw ? " — " + pairKw : "") + ", the energy the two of you create as a pair."; } }
+    out.innerHTML = '<div class="compare-grid">' + personCard("You", p1, r1) + personCard("Partner / Child", p2, r2) + '</div>' + '<div class="compare-note">' + note + '</div>';
   }
-
-  var compareToggle = document.getElementById("compareToggle");
-  var compareSection = document.getElementById("compareSection");
-  compareToggle.addEventListener("click", function(){
-    var open = compareSection.classList.toggle("open");
-    compareToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    compareToggle.textContent = open ? "− Hide Comparison" : "+ Compare With Partner or Child";
-    if (open) runCompare();
-  });
-  document.getElementById("compareBtn").addEventListener("click", runCompare);
-  document.getElementById("bday2").addEventListener("change", runCompare);
-
-  document.getElementById("convertBtn").addEventListener("click", run);
-  input.addEventListener("change", run);
-  input.addEventListener("input", run);
-  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(chip){
-    chip.addEventListener("click", function(){
-      input.value = chip.getAttribute("data-date");
-      run();
-    });
-  });
-
-  var copyResultBtn = document.getElementById("copyResultBtn");
-  copyResultBtn.addEventListener("click", function(){
-    if (!lastResult) return;
-    var r = lastResult.r;
-    function lpLine(label, val){
-      if (val === null || val === undefined) return label + ": — (standalone day)";
-      return label + ": " + val + (KEYWORDS[val] ? " — " + KEYWORDS[val] : "");
-    }
-    var text =
-      "Life Path Converter\n" +
-      "Born: " + lastResult.gregLabel + "\n" +
-      "13-Month Birthday: " + r.label + "\n" +
-      lpLine("Gregorian Life Path", r.gLp) + "\n" +
-      lpLine("13-Month Life Path", r.lp13) + "\n" +
-      lpLine("Blended Life Path", r.blended) + "\n" +
-      "2027 Personal Year: " + r.py2027 + "\n" +
-      "https://overstimulatedboydad.github.io/13-month-converter/";
-    function done(){ copyResultBtn.textContent = "Copied ✓"; setTimeout(function(){ copyResultBtn.textContent = "Copy result"; }, 2000); }
-    if (navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done, done);
-    } else {
-      var ta = document.createElement("textarea");
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      try { document.execCommand("copy"); } catch(e){}
-      document.body.removeChild(ta); done();
-    }
-  });
-
-  var copyBtn = document.getElementById("copyBtn");
-  copyBtn.addEventListener("click", function(){
-    var text = document.getElementById("pyCode").textContent;
-    function done(){ copyBtn.textContent = "Copied ✓"; setTimeout(function(){ copyBtn.textContent = "Copy code"; }, 2000); }
-    if (navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done, done);
-    } else {
-      var ta = document.createElement("textarea");
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      try { document.execCommand("copy"); } catch(e){}
-      document.body.removeChild(ta); done();
-    }
-  });
-
+  var compareToggle = document.getElementById("compareToggle"); var compareSection = document.getElementById("compareSection"); compareToggle.addEventListener("click", function(){ var open = compareSection.classList.toggle("open"); compareToggle.setAttribute("aria-expanded", open ? "true" : "false"); compareToggle.textContent = open ? "− Hide Comparison" : "+ Compare With Partner or Child"; if (open) runCompare(); });
+  document.getElementById("compareBtn").addEventListener("click", runCompare); document.getElementById("bday2").addEventListener("change", runCompare);
+  document.getElementById("convertBtn").addEventListener("click", run); input.addEventListener("change", run); input.addEventListener("input", run);
+  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function(chip){ chip.addEventListener("click", function(){ input.value = chip.getAttribute("data-date"); run(); }); });
+  var copyResultBtn = document.getElementById("copyResultBtn"); copyResultBtn.addEventListener("click", function(){ if (!lastResult) return; var r = lastResult.r; function lpLine(label, val){ if (val === null || val === undefined) return label + ": — (standalone day)"; return label + ": " + val + (KEYWORDS[val] ? " — " + KEYWORDS[val] : ""); } var text = "Life Path Converter\n" + "Born: " + lastResult.gregLabel + "\n" + "13-Month Birthday: " + r.label + "\n" + lpLine("Gregorian Life Path", r.gLp) + "\n" + lpLine("13-Month Life Path", r.lp13) + "\n" + lpLine("Blended Life Path", r.blended) + "\n" + "2027 Personal Year: " + r.py2027 + "\n" + "https://overstimulatedboydad.github.io/13-month-converter/"; function done(){ copyResultBtn.textContent = "Copied ✓"; setTimeout(function(){ copyResultBtn.textContent = "Copy result"; }, 2000); } if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, done); } else { var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch(e){} document.body.removeChild(ta); done(); } });
+  var copyBtn = document.getElementById("copyBtn"); copyBtn.addEventListener("click", function(){ var text = document.getElementById("pyCode").textContent; function done(){ copyBtn.textContent = "Copied ✓"; setTimeout(function(){ copyBtn.textContent = "Copy code"; }, 2000); } if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, done); } else { var ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch(e){} document.body.removeChild(ta); done(); } });
   run();
 })();
 </script>
